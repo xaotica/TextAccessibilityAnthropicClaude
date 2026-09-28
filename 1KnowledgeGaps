@@ -1,0 +1,58 @@
+Debugging Google docs issues
+
+My original prompt:
+
+"## Knowledge Gaps Causing Repeated Failures
+
+---
+
+## Google Docs Import Behavior
+
+Which docx-js properties survive docx → Google Docs import without corruption
+Which properties cause black backgrounds specifically on Google Docs import
+Whether ShadingType.CLEAR
+fill hex renders correctly or falls back to black
+Whether ShadingType.SOLID behaves differently on import
+Which table shading approach renders a visible warm fill in Google Docs
+Whether removing all table shading entirely produces white or black cells
+Whether Document.background is the background source or something else is
+---
+
+## Run-Level vs. Style-Level Color in Google Docs
+
+Whether run-level color properties on TextRun can be overridden by the user in Google Docs without selecting all text
+Whether style-level color (defined in paragraphStyles) is overridable by the user but run-level is not
+Which color application method allows user correction after import
+---
+
+## docx-js API Behavior
+
+Confirmed rendering behavior of each shading type enum value in Google Docs specifically
+Whether any docx-js background property applies cleanly to Google Docs
+Which docx-js features are confirmed safe vs. confirmed broken on Google Docs import "
+
+Please number those and separate them into two groups for general questions (ie you need to know a general answer for how this works) and specific questions that are about this specific document
+
+## Anthropic's Claude replies... ##
+
+Knowledge Gap Inventory
+Group A — General (System Behavior, Docx → GDocs Import)
+
+Which docx-js properties survive docx → Google Docs import without corruption
+Which properties cause black backgrounds specifically on Google Docs import
+Whether ShadingType.CLEAR + explicit fill hex renders correctly or falls back to black on import
+Whether ShadingType.SOLID behaves differently from CLEAR on import
+Which table shading approach renders a visible warm fill in Google Docs
+Whether removing all table shading entirely produces white or black cells in Google Docs
+Confirmed rendering behavior of each ShadingType enum value in Google Docs specifically
+Whether any docx-js Document.background property applies cleanly through GDocs import
+Which docx-js features are confirmed safe vs. confirmed broken on Google Docs import
+Whether run-level color on TextRun can be overridden by the user in Google Docs without manually selecting all text
+Whether style-level color (via paragraphStyles) is user-overridable in GDocs while run-level is not
+Which color application method allows user correction post-import
+
+Group B — Specific (This Document / Current Implementation)
+Whether Document.background is the actual source of the black background in this document, or whether table cell shading is the true cause
+Whether the previously applied "fix" (removing Document.background) was a false positive that masked but didn't resolve the underlying shading issue
+
+Note: Most gaps are Group A — the specific doc questions (13–14) are diagnostic/causal, contingent on answers to the general ones.
