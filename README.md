@@ -1,5 +1,5 @@
 # TextAccessibilityAnthropicClaude
-Spent a session doing deep research into why Google Docs kept rendering my AI-generated documents with black backgrounds.  
+Spent a session doing deep research into why Claude exporting my work into a Google Docs kept rendering my AI-generated documents with black backgrounds.  
 
 Turns out it's a combination of obscure XML spec behavior, an unfixed bug in the docx-js library, and GDocs silently failing on malformed properties.  
 
@@ -7,7 +7,9 @@ Built a reusable prompt that generates perfectly formatted Google Docs from any 
 
 Now I just paste content and get a research-backed document out. No manual formatting ever.
 
-Any AI that generates .docx files using docx-js and expects them to import cleanly into Google Docs will hit some version of this problem, because the failure modes are in the library and the format spec, not in the AI's reasoning:
+# Details
+
+Any AI that generates .docx files using docx-js and expects them to import cleanly into Google Docs may hit some version of this problem. The failure modes are in the library and the format spec, not in the AI's reasoning:
 
 ShadingType.SOLID causing black cells is spec-correct behavior — any model following the docx-js documentation will use it wrong.
 
