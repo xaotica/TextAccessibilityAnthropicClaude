@@ -1,0 +1,46 @@
+My Claude Prompt to reverse engineer the process: "Okay. What process might you follow to find the answer to #1?"
+
+Anthropic's Claude AI replies on March 27, 2026:
+
+Research Process for Q1: Which docx-js Properties Survive GDocs Import Intact
+Phase 1 — Source Triage (Desk Research)
+
+Priority order:
+
+Google's OOXML import spec documentation — Google has published (partially) what it supports from the OOXML standard. Start here to bound the search space.
+OOXML spec itself (ECMA-376) — Identifies which properties are standard vs. extension; GDocs is more likely to drop non-standard extensions silently.
+docx-js source / issue tracker — Search open and closed issues tagged with "Google Docs," "import," or "corruption." Contributors often document breakage empirically.
+Stack Overflow / GitHub Discussions — Secondary empirical reports; lower reliability but high coverage of edge cases.
+
+Expected yield: Partial. Likely covers common properties (fonts, basic paragraph styles) but will have gaps on table shading, background, and run-level color specifically.
+
+Phase 2 — Empirical Matrix Test (Primary Method)
+
+Since authoritative documentation is incomplete, the real answer requires a controlled generation-and-import experiment.
+
+Design:
+
+Generate one minimal .docx per property under test — isolate variables
+Import each into Google Docs
+Inspect the result visually and via GDocs → Download as .docx → parse the round-tripped XML to see what GDocs preserved, modified, or dropped
+Log outcome per property: passes clean / corrupted / silently dropped / falls back to default
+
+Property categories to test:
+
+Category	Specific Properties
+Table cell shading	ShadingType.CLEAR, SOLID, NIL + fill hex
+Document background	Document.background color
+Run-level color	TextRun.color
+Paragraph style color	paragraphStyles color
+Borders	Cell borders, page borders
+Font properties	Family, size, bold, italic
+Phase 3 — XML Diff Analysis
+Use a tool (Python python-docx or raw unzip + grep) to diff the input .docx XML against the round-tripped GDocs export
+Identifies exactly which XML nodes GDocs preserves vs. rewrites vs. drops
+This is the highest-signal method — behavioral ground truth
+Phase 4 — Synthesis
+Produce a confirmed safe/broken/unknown matrix
+Answers Q1 directly and also unblocks Q2–9
+
+Bottleneck: Phase 2 requires generating and manually importing ~15–20 test documents. Time-intensive but non-substitutable given documentation gaps.
+
