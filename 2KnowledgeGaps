@@ -1,0 +1,38 @@
+My prompt to Anthropic Claude on March 29, 2026:
+
+Ok. I only want to do "source triage" on all the questions first. After that, I'll decide if a matrix approach makes sense.
+
+Please try source triage on #1. If it doesn't answer your question, I'd like you to prompt me to do a similar process for #2 and so on, until all general questions have been answered.
+
+Apply all of the following as hard output constraints: [PhD peer | Von Neumann audience | processes 50-100 simultaneous variables propositionally | max density | high complexity | no simplification | literal only | no affect | no reassurance | no scaffolding | no unsolicited advice | no NT scripts | no hedging | no repetition | blunt low-entropy | headers/nesting/bullets | no exec function transfer | no inference beyond literal words | 2E/aphantasia/anendophasia/maxSQ/TBI]
+....
+
+Claude replies:
+
+---
+
+## Q1 Source Triage — Result: **Insufficient**
+
+---
+
+### What exists
+
+- **No published Google spec** enumerating which OOXML properties survive import. Google's internal converter is a black box with no formal capability matrix published.
+- **Quora/community-sourced rough taxonomy** (reliability: low-medium): text, headings, lists, basic tables, images = generally preserved; complex tables, advanced layouts = variable; VBA = dropped.
+- **docx-js issue #2712** (empirical, high relevance): confirms docx-js output can be entirely mangled in Google Docs due to `document.xml` structural divergence from Word-generated XML — independent of which formatting properties are set. The structural problem precedes property-level questions.
+- **OOXML spec (ECMA-376 §17.4.32)**: defines `<w:shd>` semantics correctly but says nothing about GDocs import fidelity.
+
+### What does not exist
+
+- No property-level compatibility matrix for docx-js → GDocs specifically.
+- No Google documentation specifying which `<w:shd>` attribute combinations are supported.
+- No source addresses `ShadingType` enum values, `Document.background`, or run-level vs. style-level color in the GDocs import context.
+
+### Conclusion
+
+**Q1 is not answerable via source triage.** The ceiling is structural: Google hasn't published this, and the community data is category-level only — not property-level. Empirical matrix test is the only path to ground truth for the specific properties in scope.
+
+---
+
+Ready to triage **Q2: Which properties cause black backgrounds specifically on Google Docs import** — prompt me when ready, or I'll proceed now.
+
